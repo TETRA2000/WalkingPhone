@@ -3,6 +3,7 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#227d5b"
     android:gravity="center_horizontal"
     android:orientation="vertical" >
 
@@ -22,6 +23,7 @@
         android:layout_below="@+id/man"
         android:layout_marginTop="18dp"
         android:text="@string/usage_title"
+        android:textColor="#f6f8f5"
         android:textSize="30sp" />
 
     <TextView
@@ -31,7 +33,7 @@
         android:layout_alignLeft="@+id/title"
         android:layout_below="@+id/title"
         android:layout_marginTop="5dp"
-        android:text="12:34"
+        android:textColor="#f6f8f5"
         android:textSize="24sp" />
 
 </RelativeLayout>
