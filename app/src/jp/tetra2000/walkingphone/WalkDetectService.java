@@ -28,7 +28,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	private Sensor mGyro;
 	
 	private long walkStartTime;
-	private long lastMove;
+	private long lastMoveTime;
 	
 	private DB mDb;
 	private Calendar mCal;
@@ -74,7 +74,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	private void enableSensor() {
 		// init
 		walkStartTime = 0;
-		lastMove = 0;
+		lastMoveTime = 0;
 		
 		mSensorManager.registerListener(this, mGyro, SensorManager.SENSOR_DELAY_NORMAL);
 	}
@@ -111,7 +111,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		if(Math.abs(pitch) > 0.4) {
 			Log.d(TAG, "moving!! pitch=" + pitch);
 			
-			if(t - lastMove < MAX_MOVE_INTERVAL) {
+			if(t - lastMoveTime < MAX_MOVE_INTERVAL) {
 				Log.d(TAG, "walking...");
 				
 				if(t - walkStartTime > MIN_WALK_TIME) {
@@ -139,7 +139,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 					walkStartTime = t;
 			}
 					
-				lastMove = t;
+				lastMoveTime = t;
 		}
 	}
 }
