@@ -41,7 +41,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		// setup sensor
 		if(mSensorManager == null) {
 	        mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-	        mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+	        mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
 	        if(mAccel == null) {
 	        	stopSelf();
 	        }
