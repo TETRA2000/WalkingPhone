@@ -37,10 +37,13 @@ public class DB {
 		Cursor cursor =
 				db.query("walk", columns, selection, null, null, null, null);
 		
+		int len = 0;
 		if(cursor.moveToFirst()) {
-			return cursor.getInt(cursor.getColumnIndex("length"));
+			len = cursor.getInt(cursor.getColumnIndex("length"));
 		}
 		
-		return 0;
+		db.close();
+		
+		return len;
 	}
 }
