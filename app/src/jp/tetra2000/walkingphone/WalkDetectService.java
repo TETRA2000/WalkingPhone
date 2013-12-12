@@ -89,7 +89,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		float pitch = event.values[1];
-		long t = System.currentTimeMillis() / 1000;
+		long t = System.currentTimeMillis();
 		
 		if(Math.abs(pitch) > 0.5) {
 			Log.d(TAG, "moving!! pitch=" + pitch);
