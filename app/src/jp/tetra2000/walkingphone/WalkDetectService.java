@@ -1,5 +1,8 @@
 package jp.tetra2000.walkingphone;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -26,6 +29,9 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	
 	private long walkStartTime = 0;
 	private long lastMove = 0;
+	
+	private DB mDb;
+	private Calendar mCal;
 
 	@Override
 	public void onCreate() {
@@ -34,6 +40,13 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		filter.addAction(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
 		this.registerReceiver(mScreenReceiver, filter);
+		
+		// open db
+		mDb = new DB(this);
+		
+		// XXX not support dynamic location change
+		// TODO setup BroadcastReceiver
+		mCal = Calendar.getInstance(Locale.getDefault());
 	}
 	
 	@Override
@@ -102,7 +115,14 @@ public class WalkDetectService extends Service implements SensorEventListener {
 					Log.d(TAG, "You walked 10sec");
 					Toast.makeText(this, "walk", Toast.LENGTH_LONG).show();
 					
-					// TODO count
+					// update calendar
+					mCal.setTimeInMillis(t);
+					
+					int year = mCal.get(Calendar.YEAR);
+					int month = mCal.get(Calendar.MONTH);
+					int day = mCal.get(Calendar.DAY_OF_MONTH);
+					
+					mDb.add(year, month, day, MIN_WALK_TIME/1000);
 					
 					// reset walkStartTime
 					walkStartTime = t;
