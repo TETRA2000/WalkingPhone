@@ -16,8 +16,16 @@ import android.widget.Toast;
 public class WalkDetectService extends Service implements SensorEventListener {
 	private static final String TAG = "WalkDetectService";
 	
+	// milli seconds
+	private static final long MIN_WALK_TIME = 10 * 1000;
+	// milli seconds
+	private static final long MAX_MOVE_INTERVAL = 1 * 1000;
+	
 	private SensorManager mSensorManager;
 	private Sensor mGyro;
+	
+	private long walkStartTime = Long.MIN_VALUE;
+	private long lastMove = Long.MIN_VALUE;
 
 	@Override
 	public void onCreate() {
@@ -81,9 +89,30 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		float pitch = event.values[1];
+		long t = System.currentTimeMillis() / 1000;
 		
 		if(Math.abs(pitch) > 0.5) {
 			Log.d(TAG, "moving!! pitch=" + pitch);
+			
+			if(t - lastMove < MAX_MOVE_INTERVAL) {
+				
+				if(t - walkStartTime > MIN_WALK_TIME) {
+					
+					Log.d(TAG, "You walked 10sec");
+					Toast.makeText(this, "walk", Toast.LENGTH_LONG).show();
+					
+					// TODO count
+					
+					// reset walkStartTime
+					walkStartTime = t;
+				}
+				
+			} else {
+				// resume walking
+				walkStartTime = t;
+			}
+			
+			lastMove = t;
 		}
 	}
 }
