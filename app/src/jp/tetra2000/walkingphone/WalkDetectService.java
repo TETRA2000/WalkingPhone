@@ -59,7 +59,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	}
 	
 	private void enableSensor() {
-		 mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
+		 mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_UI);
 	}
 	
 	private void disableSensor() {
