@@ -107,6 +107,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 				double T = 4 * (t - lastPeekTime) / (double)NANO_INVERSE;
 				double f = 1/T;
 				
+				if(f>=2)
 				onNewFrequency(f);
 			}
 			
