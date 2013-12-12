@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class WalkDetectService extends Service implements SensorEventListener {
 	private static final String TAG = "WalkDetectService";
-	private static final int NANO_INVERSE = 10^9;
+	private static final int NANO_INVERSE = 1000000000;
 	
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
