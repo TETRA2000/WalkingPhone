@@ -41,3 +41,6 @@ proguard/
 
 # Mac cache file
 ._.DS_Store
+
+#keystore
+*.keystore
