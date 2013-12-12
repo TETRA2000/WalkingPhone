@@ -1,9 +1,10 @@
 package jp.tetra2000.walkingphone;
 
-import android.app.*;
-import android.os.*;
-import android.view.*;
-import android.widget.*;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+
+
 
 public class MainActivity extends Activity
 {
@@ -13,5 +14,7 @@ public class MainActivity extends Activity
 	{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+		startService(new Intent(this, WalkDetectService.class));
     }
 }
