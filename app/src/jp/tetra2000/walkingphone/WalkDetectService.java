@@ -10,16 +10,22 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 public class WalkDetectService extends Service implements SensorEventListener {
+	private static final String TAG = "WalkDetectService";
+	private static final int NANO_INVERSE = 10^9;
+	
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
 	
-	private long t0=Long.MIN_VALUE, t1=Long.MIN_VALUE;
-	private float z0 = Float.MIN_VALUE, z1 = Float.MIN_VALUE;
+	private float lastPeek=0, peek=0;
+	// last peek time
+	private long lastPeekTime, peekTime ;
+	// true=PLUS, false=MINUS
+	private boolean lastSign = false;
 	
-	private long lastPeek = Long.MIN_VALUE;
 
 	@Override
 	public void onCreate() {
@@ -82,33 +88,41 @@ public class WalkDetectService extends Service implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		long t2 = event.timestamp;
-		float z2 = event.values[2];
+		float z = event.values[2];
+		long t = event.timestamp;
+		boolean sign = z>0;
 		
-		// NOT first or second time
-		if(t0!=Long.MIN_VALUE && t1!=Long.MIN_VALUE) {
-			
-			// Not peek
-			if((z0-z1) * (z1-z2) > 0)
-				return;
-			
-			if(lastPeek != Long.MIN_VALUE) {
-				
-				
-			} else {
-				// first peek
-				
-				// only update peek
-				lastPeek = t1;
-			}
-			
-			
+		// first sensor value
+		if(lastPeekTime == Long.MIN_VALUE) {
+			lastPeekTime = t;
+			lastSign = sign;
+			return;
 		}
 		
-		// update t0, t1, z0, z1
-		t0 = t1;
-		t1 = t2;
-		z0 = z1;
-		z1 = z2;
+		// sign of z has changed
+		if(sign != lastSign) {
+			
+			// NOT first time
+			if(lastPeek != 0) {
+				long nanoT = 4 * (t - lastPeekTime);
+				double f = (1/(double)nanoT) * NANO_INVERSE;
+				
+				onNewFrequency(f);
+			}
+			
+			// update lastPeek, lastPeekTime
+			lastPeek = peek;
+			lastPeekTime = peekTime;
+		}
+		
+		// update peek
+		if(sign ? z > peek : z < peek ) {
+			peek = z;
+			peekTime = t;
+		}
+	}
+	
+	private void onNewFrequency(double f) {
+		Log.d(TAG, f+"hz");
 	}
 }
