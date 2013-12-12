@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
 
-public class WalkDetectService extends Service {
+public class WalkDetectService extends Service implements SensorEventListener {
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
 
@@ -55,4 +57,16 @@ public class WalkDetectService extends Service {
 		}
 		
 	};
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 }
