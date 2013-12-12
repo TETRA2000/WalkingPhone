@@ -13,12 +13,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
-import android.util.Log;
-import android.widget.Toast;
 
-public class WalkDetectService extends Service implements SensorEventListener {
-	private static final String TAG = "WalkDetectService";
-	
+public class WalkDetectService extends Service implements SensorEventListener {	
 	// milli seconds
 	private static final int MIN_WALK_TIME = 10 * 1000;
 	// milli seconds
@@ -109,15 +105,10 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		long t = System.currentTimeMillis();
 		
 		if(Math.abs(pitch) > 0.4) {
-			Log.d(TAG, "moving!! pitch=" + pitch);
 			
 			if(t - lastMoveTime < MAX_MOVE_INTERVAL) {
-				Log.d(TAG, "walking...");
 				
 				if(t - walkStartTime > MIN_WALK_TIME) {
-					
-					Log.d(TAG, "You walked 10sec");
-					Toast.makeText(this, "walk", Toast.LENGTH_LONG).show();
 					
 					// update calendar
 					mCal.setTimeInMillis(t);
@@ -133,8 +124,6 @@ public class WalkDetectService extends Service implements SensorEventListener {
 				} 
 				
 			} else {
-					Log.d(TAG, "resume walking");
-					
 					// resume walking
 					walkStartTime = t;
 			}
