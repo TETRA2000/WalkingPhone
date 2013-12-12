@@ -51,7 +51,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	}
 	
 	private void enableSensor() {
-		 mSensorManager.registerListener(this, mGyro, SensorManager.SENSOR_DELAY_UI);
+		 mSensorManager.registerListener(this, mGyro, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 	
 	private void disableSensor() {
