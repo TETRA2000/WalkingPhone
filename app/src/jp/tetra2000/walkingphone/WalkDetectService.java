@@ -1,8 +1,10 @@
 package jp.tetra2000.walkingphone;
 
 import android.app.Service;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.IBinder;
@@ -33,8 +35,27 @@ public class WalkDetectService extends Service {
 	        }
 		}
 		
+		// add screen receiver
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Intent.ACTION_SCREEN_ON);
+		filter.addAction(Intent.ACTION_SCREEN_OFF);
+		this.registerReceiver(mScreenReceiver, filter);
 		
 		
 		return START_STICKY;
 	}
+	
+	private BroadcastReceiver mScreenReceiver = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if(Intent.ACTION_SCREEN_ON.equals(action)) {
+				
+			} else if(Intent.ACTION_SCREEN_OFF.equals(action)) {
+				
+			}
+		}
+		
+	};
 }
