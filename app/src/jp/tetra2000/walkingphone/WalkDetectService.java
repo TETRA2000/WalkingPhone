@@ -110,9 +110,10 @@ public class WalkDetectService extends Service implements SensorEventListener {
 				onNewFrequency(f);
 			}
 			
-			// update lastPeek, lastPeekTime
+			// update lastPeek, lastPeekTime and lastSign
 			lastPeek = peek;
 			lastPeekTime = peekTime;
+			lastSign = sign;
 		}
 		
 		// update peek
