@@ -95,6 +95,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 			Log.d(TAG, "moving!! pitch=" + pitch);
 			
 			if(t - lastMove < MAX_MOVE_INTERVAL) {
+				Log.d(TAG, "walking...");
 				
 				if(t - walkStartTime > MIN_WALK_TIME) {
 					
@@ -105,14 +106,16 @@ public class WalkDetectService extends Service implements SensorEventListener {
 					
 					// reset walkStartTime
 					walkStartTime = t;
-				}
+				} 
 				
 			} else {
-				// resume walking
-				walkStartTime = t;
+					Log.d(TAG, "resume walking");
+					
+					// resume walking
+					walkStartTime = t;
 			}
-			
-			lastMove = t;
+					
+				lastMove = t;
 		}
 	}
 }
