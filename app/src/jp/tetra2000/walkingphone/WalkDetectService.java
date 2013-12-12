@@ -15,17 +15,9 @@ import android.widget.Toast;
 
 public class WalkDetectService extends Service implements SensorEventListener {
 	private static final String TAG = "WalkDetectService";
-	private static final int NANO_INVERSE = 1000000000;
 	
 	private SensorManager mSensorManager;
-	private Sensor mAccel;
-	
-	private float lastPeek=0, peek=0;
-	// last peek time
-	private long lastPeekTime, peekTime ;
-	// true=PLUS, false=MINUS
-	private boolean lastSign = false;
-	
+	private Sensor mGyro;
 
 	@Override
 	public void onCreate() {
@@ -47,8 +39,8 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		// setup sensor
 		if(mSensorManager == null) {
 	        mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
-	        mAccel = mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
-	        if(mAccel == null) {
+	        mGyro = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
+	        if(mGyro == null) {
 	        	stopSelf();
 	        }
 		}
@@ -59,7 +51,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	}
 	
 	private void enableSensor() {
-		 mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_UI);
+		 mSensorManager.registerListener(this, mGyro, SensorManager.SENSOR_DELAY_UI);
 	}
 	
 	private void disableSensor() {
@@ -88,43 +80,10 @@ public class WalkDetectService extends Service implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		float z = event.values[2];
-		long t = event.timestamp;
-		boolean sign = z>0;
+		float pitch = event.values[1];
 		
-		// first sensor value
-		if(lastPeekTime == Long.MIN_VALUE) {
-			lastPeekTime = t;
-			lastSign = sign;
-			return;
+		if(Math.abs(pitch) > 0.5) {
+			Log.d(TAG, "moving!! pitch=" + pitch);
 		}
-		
-		// sign of z has changed
-		if(sign != lastSign) {
-			
-			// NOT first time
-			if(lastPeek != 0) {
-				double T = 4 * (t - lastPeekTime) / (double)NANO_INVERSE;
-				double f = 1/T;
-				
-				if(f>=2)
-				onNewFrequency(f);
-			}
-			
-			// update lastPeek, lastPeekTime and lastSign
-			lastPeek = peek;
-			lastPeekTime = peekTime;
-			lastSign = sign;
-		}
-		
-		// update peek
-		if(sign ? z > peek : z < peek ) {
-			peek = z;
-			peekTime = t;
-		}
-	}
-	
-	private void onNewFrequency(double f) {
-		Log.d(TAG, f+"hz");
 	}
 }
