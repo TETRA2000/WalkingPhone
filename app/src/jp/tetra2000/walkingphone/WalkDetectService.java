@@ -39,9 +39,19 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	        if(mAccel == null) {
 	        	stopSelf();
 	        }
-		}		
+		}
+		
+		enableSensor();
 		
 		return START_STICKY;
+	}
+	
+	private void enableSensor() {
+		 mSensorManager.registerListener(this, mAccel, SensorManager.SENSOR_DELAY_NORMAL);
+	}
+	
+	private void disableSensor() {
+		mSensorManager.unregisterListener(this);
 	}
 	
 	private BroadcastReceiver mScreenReceiver = new BroadcastReceiver() {
@@ -50,9 +60,9 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		public void onReceive(Context context, Intent intent) {
 			String action = intent.getAction();
 			if(Intent.ACTION_SCREEN_ON.equals(action)) {
-				
+				enableSensor();
 			} else if(Intent.ACTION_SCREEN_OFF.equals(action)) {
-				
+				disableSensor();
 			}
 		}
 		
