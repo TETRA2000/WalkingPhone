@@ -26,6 +26,17 @@
             android:enabled="true"
             android:exported="false" >
         </service>
+
+        <receiver
+            android:name="jp.tetra2000.walkingphone.BootReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
