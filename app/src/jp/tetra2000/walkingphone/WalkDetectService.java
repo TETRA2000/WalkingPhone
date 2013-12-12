@@ -19,7 +19,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	// milli seconds
 	private static final long MIN_WALK_TIME = 10 * 1000;
 	// milli seconds
-	private static final long MAX_MOVE_INTERVAL = 1 * 1000;
+	private static final long MAX_MOVE_INTERVAL = 1500;
 	
 	private SensorManager mSensorManager;
 	private Sensor mGyro;
@@ -91,7 +91,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		float pitch = event.values[1];
 		long t = System.currentTimeMillis();
 		
-		if(Math.abs(pitch) > 0.5) {
+		if(Math.abs(pitch) > 0.4) {
 			Log.d(TAG, "moving!! pitch=" + pitch);
 			
 			if(t - lastMove < MAX_MOVE_INTERVAL) {
