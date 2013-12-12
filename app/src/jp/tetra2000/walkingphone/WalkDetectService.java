@@ -24,8 +24,8 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	private SensorManager mSensorManager;
 	private Sensor mGyro;
 	
-	private long walkStartTime = Long.MIN_VALUE;
-	private long lastMove = Long.MIN_VALUE;
+	private long walkStartTime = 0;
+	private long lastMove = 0;
 
 	@Override
 	public void onCreate() {
