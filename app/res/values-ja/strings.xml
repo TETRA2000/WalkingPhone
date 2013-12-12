@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">歩きスマホ計</string>
+    <string name="usage_title">今日の歩きスマホ</string>
+    <string name="time_format">%1$d時間 %2$d分</string>
+
+</resources>
