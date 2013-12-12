@@ -15,7 +15,11 @@ public class WalkDetectService extends Service {
 
 	@Override
 	public void onCreate() {
-		
+		// add screen receiver
+		IntentFilter filter = new IntentFilter();
+		filter.addAction(Intent.ACTION_SCREEN_ON);
+		filter.addAction(Intent.ACTION_SCREEN_OFF);
+		this.registerReceiver(mScreenReceiver, filter);
 	}
 	
 	@Override
@@ -33,14 +37,7 @@ public class WalkDetectService extends Service {
 	        if(mAccel == null) {
 	        	stopSelf();
 	        }
-		}
-		
-		// add screen receiver
-		IntentFilter filter = new IntentFilter();
-		filter.addAction(Intent.ACTION_SCREEN_ON);
-		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		this.registerReceiver(mScreenReceiver, filter);
-		
+		}		
 		
 		return START_STICKY;
 	}
