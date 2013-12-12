@@ -24,7 +24,14 @@ public class DB {
 		ContentValues cv = new ContentValues();
 		cv.put("length", oldLen + length);
 		
-		db.update("walk", cv, selection, null);
+		if(oldLen == 0) {
+			cv.put("year", year);
+			cv.put("month", month);
+			cv.put("day", day);
+			db.insert("walk", null, cv);
+		} else {
+			db.update("walk", cv, selection, null);
+		}
 				
 		db.close();
 	}
