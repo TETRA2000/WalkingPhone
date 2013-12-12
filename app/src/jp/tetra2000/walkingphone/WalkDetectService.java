@@ -27,8 +27,8 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	private SensorManager mSensorManager;
 	private Sensor mGyro;
 	
-	private long walkStartTime = 0;
-	private long lastMove = 0;
+	private long walkStartTime;
+	private long lastMove;
 	
 	private DB mDb;
 	private Calendar mCal;
@@ -72,7 +72,11 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	}
 	
 	private void enableSensor() {
-		 mSensorManager.registerListener(this, mGyro, SensorManager.SENSOR_DELAY_NORMAL);
+		// init
+		walkStartTime = 0;
+		lastMove = 0;
+		
+		mSensorManager.registerListener(this, mGyro, SensorManager.SENSOR_DELAY_NORMAL);
 	}
 	
 	private void disableSensor() {
