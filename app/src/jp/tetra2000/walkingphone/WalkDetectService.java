@@ -10,10 +10,16 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+import android.widget.Toast;
 
 public class WalkDetectService extends Service implements SensorEventListener {
 	private SensorManager mSensorManager;
 	private Sensor mAccel;
+	
+	private long t0=Long.MIN_VALUE, t1=Long.MIN_VALUE;
+	private float z0 = Float.MIN_VALUE, z1 = Float.MIN_VALUE;
+	
+	private long lastPeek = Long.MIN_VALUE;
 
 	@Override
 	public void onCreate() {
@@ -76,7 +82,33 @@ public class WalkDetectService extends Service implements SensorEventListener {
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
-		// TODO Auto-generated method stub
+		long t2 = event.timestamp;
+		float z2 = event.values[2];
 		
+		// NOT first or second time
+		if(t0!=Long.MIN_VALUE && t1!=Long.MIN_VALUE) {
+			
+			// Not peek
+			if((z0-z1) * (z1-z2) > 0)
+				return;
+			
+			if(lastPeek != Long.MIN_VALUE) {
+				
+				
+			} else {
+				// first peek
+				
+				// only update peek
+				lastPeek = t1;
+			}
+			
+			
+		}
+		
+		// update t0, t1, z0, z1
+		t0 = t1;
+		t1 = t2;
+		z0 = z1;
+		z1 = z2;
 	}
 }
