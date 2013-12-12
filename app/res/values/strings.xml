@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">WalkingPhone</string>
+    <string name="usage_title">Walking Phone</string>
+    <string name="time_format">%1$dh %2$dm</string>
 
 </resources>
