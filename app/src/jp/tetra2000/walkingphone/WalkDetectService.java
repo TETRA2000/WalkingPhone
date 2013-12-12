@@ -17,9 +17,9 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	private static final String TAG = "WalkDetectService";
 	
 	// milli seconds
-	private static final long MIN_WALK_TIME = 10 * 1000;
+	private static final int MIN_WALK_TIME = 10 * 1000;
 	// milli seconds
-	private static final long MAX_MOVE_INTERVAL = 1500;
+	private static final int MAX_MOVE_INTERVAL = 1500;
 	
 	private SensorManager mSensorManager;
 	private Sensor mGyro;
