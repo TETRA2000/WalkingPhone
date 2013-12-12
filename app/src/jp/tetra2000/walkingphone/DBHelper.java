@@ -13,7 +13,6 @@ public class DBHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL("create table walk(year integer, month integer, day integer, length integer);");
-		db.close();
 	}
 
 	@Override
