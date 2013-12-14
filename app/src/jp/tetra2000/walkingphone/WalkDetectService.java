@@ -102,7 +102,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		float pitch = event.values[1];
-		long t = System.currentTimeMillis();
+		long t = event.timestamp / 1000000; // nano to milli
 		
 		if(Math.abs(pitch) > 0.4) {
 			
