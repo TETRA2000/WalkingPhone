@@ -71,6 +71,12 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		return START_STICKY;
 	}
 	
+	@Override
+	public void onDestroy() {
+		this.unregisterReceiver(mScreenReceiver);
+		mSensorManager = null;
+	}
+	
 	private void enableSensor() {
 		// init
 		walkStartTime = 0;
