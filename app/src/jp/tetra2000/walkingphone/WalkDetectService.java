@@ -87,6 +87,10 @@ public class WalkDetectService extends Service implements SensorEventListener {
 	
 	private void disableSensor() {
 		mSensorManager.unregisterListener(this);
+		
+		// reset counter
+		walkStartTime = 0;
+		lastMoveTime = 0;
 	}
 	
 	private BroadcastReceiver mScreenReceiver = new BroadcastReceiver() {
