@@ -130,7 +130,7 @@ public class WalkDetectService extends Service implements SensorEventListener {
 					Toast.makeText(this, "walk", Toast.LENGTH_LONG).show();
 					
 					// update calendar
-					mCal.setTimeInMillis(t);
+					mCal.setTimeInMillis(System.currentTimeMillis());
 					
 					int year = mCal.get(Calendar.YEAR);
 					int month = mCal.get(Calendar.MONTH);
