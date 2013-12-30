@@ -49,6 +49,7 @@ public class DB {
 			len = cursor.getInt(cursor.getColumnIndex("length"));
 		}
 		
+		cursor.close();
 		db.close();
 		
 		return len;
