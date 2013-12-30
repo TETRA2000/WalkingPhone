@@ -47,8 +47,9 @@ public class MainActivity extends Activity
 		
 		int hour = len / (60 * 60);
 		int min = (len % (60 * 60)) / 60 ;
+		int sec = len % 60;
 		
-		String text = getString(R.string.time_format, hour, min);
+		String text = getString(R.string.time_format, hour, min, sec);
 		mTimeView.setText(text);
     }
 }
