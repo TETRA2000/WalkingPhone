@@ -39,7 +39,7 @@ public class FCounter
 	}
 	
 	private void updateList(long nowtime) {
-		while(nowtime - mTimes.get(0) < mDelta)
+		while(mTimes.size() > 0 && nowtime - mTimes.get(0) < mDelta)
 			mTimes.remove(0);
 	}
 }
