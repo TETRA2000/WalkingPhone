@@ -29,6 +29,11 @@ public class FCounter
 		updateList(nanosec);
 	}
 	
+	public void reset() {
+		mTimes.clear();
+		mLastValue = 0;
+	}
+	
 	public float getFrequency() {
 		return (float)mTimes.size() / mDelta;
 	}
