@@ -1,12 +1,14 @@
 package jp.tetra2000.walkingphone;
 
-import java.util.Calendar;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.google.analytics.tracking.android.EasyTracker;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 
 
@@ -31,6 +33,12 @@ public class MainActivity extends Activity
         
 		startService(new Intent(this, WalkDetectService.class));
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance().activityStart(this); // Add this method.
+    }
     
     @Override
     protected void onResume() {
@@ -51,5 +59,12 @@ public class MainActivity extends Activity
 		
 		String text = getString(R.string.time_format, hour, min, sec);
 		mTimeView.setText(text);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        EasyTracker.getInstance().activityStop(this); // Add this method.
     }
 }
