@@ -35,7 +35,7 @@ public class FCounter
 	}
 	
 	public float getFrequency() {
-		return (float)mTimes.size() / mDelta;
+		return (float)mTimes.size() / ((float)mDelta / 1000000000f);
 	}
 	
 	private void updateList(long nowtime) {
