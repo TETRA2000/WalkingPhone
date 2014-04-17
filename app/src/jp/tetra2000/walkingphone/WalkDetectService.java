@@ -1,8 +1,5 @@
 package jp.tetra2000.walkingphone;
 
-import java.util.Calendar;
-import java.util.Locale;
-
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +10,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.IBinder;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 public class WalkDetectService extends Service implements SensorEventListener {	
 	// milli seconds
@@ -118,8 +118,6 @@ public class WalkDetectService extends Service implements SensorEventListener {
 		float pitch = event.values[1];
 		
 		mFcounter.addData(pitch, event.timestamp);
-		
-		Log.d(TAG, "f="+mFcounter.getFrequency());
 		
 		if(Math.abs(pitch) > 0.4) {
 			long t = event.timestamp / 1000000; // nano to milli
