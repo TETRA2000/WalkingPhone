@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MHL</string>
+    <string name="app_name">MWW</string>
     <string name="usage_title">Mobile while walking</string>
     <string name="time_format">%1$dh %2$dm %3$ds</string>
 
