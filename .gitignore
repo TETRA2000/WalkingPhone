@@ -44,3 +44,4 @@ proguard/
 
 #keystore
 *.keystore
+*.pass
