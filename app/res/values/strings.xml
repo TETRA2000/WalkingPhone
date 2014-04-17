@@ -3,5 +3,6 @@
     <string name="app_name">MWW</string>
     <string name="usage_title">Mobile while walking</string>
     <string name="time_format">%1$dh %2$dm %3$ds</string>
+    <string name="ad_unit_id">ca-app-pub-4847088979275073/6409957748</string>
 
 </resources>
